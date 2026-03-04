@@ -1,15 +1,15 @@
-#include <iostream>
+#include <iostream>  //библиотека для ввода/вывода
 #include <string>
 #include <vector>
-#include <fstream>
-#include <algorithm>
-#include <ctime>
-#include <iomanip>
+#include <fstream> //для файлов
+#include <algorithm> //для сортировки
+#include <ctime> //для логгирования 
+#include <iomanip> 
 #include <windows.h>
 
 using namespace std;
 
-// ========== ЛОГГИРОВАНИЕ ==========
+// ЛОГГИРОВАНИЕ - для отладки 
 class Logger {
 private:
     ofstream logFile;
@@ -48,7 +48,7 @@ public:
     }
 };
 
-// ========== КЛАСС ДЛЯ ВВОДА ==========
+// КЛАСС ДЛЯ ВВОДА 
 class InputHandler {
 private:
     static Logger* logger;
@@ -111,7 +111,7 @@ public:
 
 Logger* InputHandler::logger = nullptr;
 
-// ========== БАЗОВЫЙ КЛАСС ==========
+//  БАЗОВЫЙ КЛАСС 
 class BaseObject {
 protected:
     static int nextPipeId;
@@ -131,7 +131,7 @@ public:
 int BaseObject::nextPipeId = 1;
 int BaseObject::nextStationId = 1;
 
-// ========== КЛАСС ТРУБЫ ==========
+//  КЛАСС ТРУБЫ 
 class Pipe : public BaseObject {
 private:
     string name;
@@ -209,7 +209,7 @@ public:
     }
 };
 
-// ========== КЛАСС СТАНЦИИ ==========
+//  КЛАСС СТАНЦИИ 
 class CompressorStation : public BaseObject {
 private:
     string name;
@@ -316,7 +316,7 @@ public:
     }
 };
 
-// ========== КЛАСС ДЛЯ УПРАВЛЕНИЯ КОЛЛЕКЦИЯМИ ==========
+//  КЛАСС ДЛЯ УПРАВЛЕНИЯ КОЛЛЕКЦИЯМИ 
 template<typename T>
 class ObjectManager {
 private:
@@ -461,7 +461,7 @@ void ObjectManager<CompressorStation>::loadFromFile(const string& filename) {
     if (logger) logger->log("Загрузка из файла", filename + " (загружено " + to_string(objects.size()) + " объектов)");
 }
 
-// ========== ГЛАВНЫЙ КЛАСС ПРИЛОЖЕНИЯ ==========
+//  ГЛАВНЫЙ КЛАСС ПРИЛОЖЕНИЯ 
 class PipelineApp {
 private:
     ObjectManager<Pipe> pipeManager;
@@ -789,7 +789,7 @@ public:
     }
 };
 
-// ========== ТОЧКА ВХОДА ==========
+//  ТОЧКА ВХОДА 
 int main() {
     PipelineApp app;
     app.run();
